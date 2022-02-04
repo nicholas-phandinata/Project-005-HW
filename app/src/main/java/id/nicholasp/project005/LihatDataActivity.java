@@ -31,6 +31,8 @@ public class LihatDataActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lihat_data);
 
+        getSupportActionBar().setTitle("Data Nasabah");
+
         //penanganan list view
         list_view = findViewById(R.id.list_view);
         list_view.setOnItemClickListener(this);
