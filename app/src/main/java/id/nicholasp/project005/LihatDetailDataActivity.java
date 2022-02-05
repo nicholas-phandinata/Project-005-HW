@@ -3,7 +3,9 @@ package id.nicholasp.project005;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -58,12 +60,62 @@ public class LihatDetailDataActivity extends AppCompatActivity {
         button_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LihatDetailDataActivity.this, "Delete", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LihatDetailDataActivity.this);
+                alertDialogBuilder.setMessage("Yakin Delete?");
+
+                alertDialogBuilder.setPositiveButton("Ya",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteNasabah();
+                            }
+                        });
+
+                alertDialogBuilder.setNegativeButton("Tidak",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
 
         //mengambil data JSON
         getJSON();
+    }
+
+    private void deleteNasabah() {
+        class DeleteNasabah extends AsyncTask<Void, Void, String> {
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(LihatDetailDataActivity.this,
+                        "Deleting Data...", "Harap menunggu...",
+                        false, false);
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                HttpHandler handler = new HttpHandler();
+                String result = handler.sendGetResponse(Konfigurasi.URL_DELETE, id);
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String message) {
+                super.onPostExecute(message);
+                loading.dismiss();
+                displayDetailData(message);
+            }
+        }
+        DeleteNasabah de = new DeleteNasabah();
+        de.execute();
+        startActivity(new Intent(LihatDetailDataActivity.this, LihatDataActivity.class));
     }
 
     private void updateNasabah() {
@@ -111,7 +163,27 @@ public class LihatDetailDataActivity extends AppCompatActivity {
 
         UpdateNasabah ue = new UpdateNasabah();
         ue.execute();
-        startActivity(new Intent(this, LihatDataActivity.class));
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LihatDetailDataActivity.this);
+        alertDialogBuilder.setMessage("Update lagi?");
+
+        alertDialogBuilder.setPositiveButton("Ya",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("Tidak",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(LihatDetailDataActivity.this, LihatDataActivity.class));
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     private void getJSON() {
