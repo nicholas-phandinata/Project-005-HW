@@ -2,18 +2,18 @@ package id.nicholasp.project005;
 
 public class Konfigurasi {
     //url dimana web API berada
-    public static final String URL_GET_ALL = "http://192.168.1.100/nasabah/tampilSemuaNsbh.php";
-    public static final String URL_GET_DETAIL = "http://192.168.1.100/nasabah/tampilNsbh.php?id=";
-    public static final String URL_ADD = "http://192.168.1.100/nasabah/tambahNsbh_.php";
-    public static final String URL_UPDATE = "http://192.168.1.100/nasabah/updateNsbh_.php";
-    public static final String URL_DELETE = "http://192.168.1.100/nasabah/hapusNsbh.php";
+    public static final String URL_GET_ALL = "http://192.168.1.102/nasabah/tampilSemuaNsbh.php";
+    public static final String URL_GET_DETAIL = "http://192.168.1.102/nasabah/tampilNsbh.php?id=";
+    public static final String URL_ADD = "http://192.168.1.102/nasabah/tambahNsbh_.php";
+    public static final String URL_UPDATE = "http://192.168.1.102/nasabah/updateNsbh_.php";
+    public static final String URL_DELETE = "http://192.168.1.102/nasabah/hapusNsbh.php";
 
     //key and value JSON yang muncul di browser
     public static final String KEY_NSBH_ID = "id";
     public static final String KEY_NSBH_NAMA = "nama";
     public static final String KEY_NSBH_ALAMAT = "alamat";
     public static final String KEY_NSBH_NO_REKENING = "no_rekening";
-    public static final String KEY_NSBH_TELEPHONE = "no_telephone";
+    public static final String KEY_NSBH_NO_TELEPHONE = "no_telephone";
     public static final String KEY_NSBH_PEKERJAAN = "pekerjaan";
     public static final String KEY_NSBH_SALDO = "saldo";
 

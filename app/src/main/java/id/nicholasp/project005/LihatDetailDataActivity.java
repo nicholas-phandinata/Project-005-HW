@@ -8,14 +8,21 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 public class LihatDetailDataActivity extends AppCompatActivity {
     EditText edit_id, edit_nama, edit_alamat, edit_no_rekening, edit_no_telephone, edit_pekerjaan, edit_saldo;
     String id;
+    Button button_update;
+    Button button_delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +45,73 @@ public class LihatDetailDataActivity extends AppCompatActivity {
         id = receiveIntent.getStringExtra(Konfigurasi.NSBH_ID);
         edit_id.setText(id);
 
+        //button
+        button_update = findViewById(R.id.btn_update);
+        button_delete = findViewById(R.id.btn_delete);
+
+        button_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateNasabah();
+            }
+        });
+        button_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(LihatDetailDataActivity.this, "Delete", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         //mengambil data JSON
         getJSON();
+    }
+
+    private void updateNasabah() {
+        final String nama = edit_nama.getText().toString().trim();
+        final String alamat = edit_alamat.getText().toString().trim();
+        final String no_rekening = edit_no_rekening.getText().toString().trim();
+        final String no_telephone = edit_no_telephone.getText().toString().trim();
+        final String pekerjaan = edit_pekerjaan.getText().toString().trim();
+        final String saldo = edit_saldo.getText().toString().trim();
+
+        class UpdateNasabah extends AsyncTask<Void, Void, String> {
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(LihatDetailDataActivity.this,
+                        "Updating Data...", "Harap menunggu...",
+                        false, false);
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put(Konfigurasi.KEY_NSBH_ID, id);
+                hashMap.put(Konfigurasi.KEY_NSBH_NAMA, nama);
+                hashMap.put(Konfigurasi.KEY_NSBH_ALAMAT, alamat);
+                hashMap.put(Konfigurasi.KEY_NSBH_NO_REKENING, no_rekening);
+                hashMap.put(Konfigurasi.KEY_NSBH_NO_TELEPHONE, no_telephone);
+                hashMap.put(Konfigurasi.KEY_NSBH_PEKERJAAN, pekerjaan);
+                hashMap.put(Konfigurasi.KEY_NSBH_SALDO, saldo);
+
+                HttpHandler handler = new HttpHandler();
+                String result = handler.sendPostRequest(Konfigurasi.URL_UPDATE, hashMap);
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String message) {
+                super.onPostExecute(message);
+                loading.dismiss();
+                displayDetailData(message);
+            }
+        }
+
+        UpdateNasabah ue = new UpdateNasabah();
+        ue.execute();
+        startActivity(new Intent(this, LihatDataActivity.class));
     }
 
     private void getJSON() {
