@@ -13,16 +13,19 @@
         android:theme="@style/Theme.Project005"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".TambahDataActivity"
+            android:exported="false" />
+        <activity
             android:name=".LihatDetailDataActivity"
             android:exported="false" />
         <activity
             android:name=".LihatDataActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

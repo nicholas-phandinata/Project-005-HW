@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -102,7 +101,7 @@ public class LihatDetailDataActivity extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... params) {
                 HttpHandler handler = new HttpHandler();
-                String result = handler.sendGetResponse(Konfigurasi.URL_DELETE, id);
+                String result = handler.sendGetResponseParam(Konfigurasi.URL_DELETE, id);
                 return result;
             }
 
@@ -201,7 +200,7 @@ public class LihatDetailDataActivity extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids) {
                 HttpHandler handler = new HttpHandler();
-                String result = handler.sendGetResponse(Konfigurasi.URL_GET_DETAIL, id);
+                String result = handler.sendGetResponseParam(Konfigurasi.URL_GET_DETAIL, id);
                 return result;
             }
 

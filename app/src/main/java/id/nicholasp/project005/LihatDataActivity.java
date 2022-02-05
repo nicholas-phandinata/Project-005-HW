@@ -8,12 +8,14 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,6 +41,27 @@ public class LihatDataActivity extends AppCompatActivity
 
         //method untuk ambil data JSON
         getJSON();
+    }
+
+    //menampilkan options menu pada toolbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.navigation_item, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //ketika salah satu options menu dipilih
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_tambah:
+                startActivity(new Intent(this, TambahDataActivity.class));
+                break;
+            default:
+                Toast.makeText(this, "No Menu is selected", Toast.LENGTH_LONG).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void getJSON() {

@@ -4,9 +4,9 @@ public class Konfigurasi {
     //url dimana web API berada
     public static final String URL_GET_ALL = "http://192.168.1.8/nasabah/tampilSemuaNsbh.php";
     public static final String URL_GET_DETAIL = "http://192.168.1.8/nasabah/tampilNsbh.php?id=";
-    public static final String URL_ADD = "http://192.168.1.8/nasabah/tambahNsbh_.php";
+    public static final String URL_ADD = "http://192.168.1.8/nasabah/tambahNsbh.php";
     public static final String URL_UPDATE = "http://192.168.1.8/nasabah/updateNsbh.php";
-    public static final String URL_DELETE = "http://192.168.1.8/nasabah/hapusNsbh.php";
+    public static final String URL_DELETE = "http://192.168.1.8/nasabah/hapusNsbh.php?id=";
 
     //key and value JSON yang muncul di browser
     public static final String KEY_NSBH_ID = "id";

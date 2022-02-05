@@ -93,7 +93,7 @@ public class HttpHandler {
     }
 
     // GET_DETAIL
-    public String sendGetResponse(String responseUrl, String id) {
+    public String sendGetResponseParam(String responseUrl, String id) {
         StringBuilder sb = new StringBuilder();
         try {
             URL url = new URL(responseUrl + id);
