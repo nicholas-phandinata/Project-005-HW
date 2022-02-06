@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Project 005</string>
+    <string name="open">drawer</string>
+    <string name="close">drawer</string>
 </resources>

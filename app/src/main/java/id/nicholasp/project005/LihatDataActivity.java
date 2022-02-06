@@ -46,7 +46,7 @@ public class LihatDataActivity extends AppCompatActivity
     //menampilkan options menu pada toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.navigation_item, menu);
+        getMenuInflater().inflate(R.menu.navigation_item_tambah, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
